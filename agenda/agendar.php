@@ -168,68 +168,7 @@
     <script>
         abririncumplidas();
     </script>
-    <?php
-        }
-        
-        
-        $stid=EjecutaRefCursor2( $REG_AGENDADOR, $conexion, 1, $codigo, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-        while (($fila = oci_fetch_array($stid, OCI_ASSOC))) {
-           $rc = $fila['DATA'];
-           oci_execute($rc);  // el valor de la columna devuelta por la consulta es un ref cursor
-           while (($fila_rc = oci_fetch_array($rc, OCI_ASSOC))) {
-        
-        	//ACA LE ASIGNARIA LOS DATOS A LAS VARIABLES
-        	$periodo = $fila_rc['SOLICITUD'];
-        	$orden = $fila_rc['ORDEN_TRABAJO'];
-        	$contacto = $fila_rc['CONTACTO'];
-        	$cliente = $fila_rc['CLIENTE'];
-        	$telefono = $fila_rc['SERVICE_NUMBER'];
-        	$municipio = $fila_rc['DESCLOCALIDAD'];
-        	$barrio = $fila_rc['DESCBARRIO'];
-        	$direccion = $fila_rc['DIRECCION'];
-        	$fecha = $fila_rc['FECHA']; 
-        	$trabajorealizar = $fila_rc['DESCTIPOTRABAJO']; 
-        	$observaciones = $fila_rc['OBSERVACIONES']; 
-        	$nuGrupoTarea = $fila_rc['GRUPO_TAREA']; 
-        	$desGrupoTarea = $fila_rc['DESC_GRUPOTAREA']; 
-        	$nuLocalidad = $fila_rc['CODLOCALIDAD'];	
-            $reagendadas = $fila_rc['REINTENTOS'];			
-            $estado = $fila_rc['ESTADO'];	
-               		
-        
-        	$fechaAgendada= date("Y-m-d", strtotime($fila_rc['FECHAAGENDA']));
-            $franjaAgendada = $fila_rc['FRANJA'];	
-        	$unidadoperagendada =  $fila_rc['UNIDAD_OPERATIVA'];	
-        	$descunidadoperagendada =  $fila_rc['DESCUNIDADOPERATIVA'];
-        	
-        	#CON ESTA VARIABLE EL NOMBRE DE LA UNIDAD SALE ARRIBA EN LAS REAGENDADAS
-        	$unidadoperagendada3 =  $fila_rc['UNIDAD_OPERATIVA'];	
-        	
-        	
-        	#con esto mantenemos la unidad agendada cuando se preciones cualquier boton de agenda o el de actualizar unidad operativa
-        	$unidadoperagendada2 =  $_POST['unidadoperagendada'];
-        	
-        	$descunidadoperagendada2 =  $_POST['descunidadoperagendada'];
-        	
-          
-          if ($estadoreagenda != null){
-         $estado = $estadoreagenda;
-         $fechaAgendada = $_POST['fechaAgendada'];
-         $franjaAgendada = $_POST['franjaAgendada'];
-         $observaciones =  $_POST['observaciones']; 
-         if($unidadoperagendada == null ){
-         $unidadoperagendada = $unidadoperagendada2; 
-         $descunidadoperagendada = $descunidadoperagendada2;
-         }	 
-          }
-        
-            }
-           oci_free_statement($rc);
-        }
-         
-        $fechaAgendadatotal = $fechaAgendada . " " . $franjaAgendada;
-        
-        ?>
+
     <!--Le da el color rojo a las letras-->
     <div id="tabla" style="width: 100%;font-family: Arial, Helvetica, sans-serif;font-size: 13px;color: #010D66;font-weight: bold;align: center;">
         <style type="text/css">
